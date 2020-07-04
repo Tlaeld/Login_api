@@ -328,8 +328,8 @@ PC登录接口，此接口提供PC端登录的功能，并根据权限提供不�
 | 参数        | 示例值   | 是否必填   |  参数描述  |
 | :--------   | :-----  | :-----  | :----  |
 | username     | admin |  必填 | 用户名 |
-| password     | admin |  必填 | 密码 |
-| Authority     | Y |  必填 | 是否为管理员   Y / N |
+| password     | admin |  选填 | 密码 |
+| Authority     | Y |  选填 | 是否为管理员   Y / N |
 | token     | 5d8e52516d00dfc1b0c49659a1008bf1 |  必填 | token |
 
 #### 成功响应示例

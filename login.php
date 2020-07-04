@@ -321,7 +321,28 @@ switch ($action) {
                         $password2 = $_POST['password'];
                         $password =  md5("$password2");
                         $Authority = lib_replace_end_tag($_POST['Authority']);
-                        if (!empty($username) && !empty($password2) && !empty($Authority) && ($Authority=="Y" || $Authority=="N" )) {
+                        //仅修改密码
+                        if (!empty($username) && !empty($password2) && empty($Authority)) {
+                            $update_sql = "UPDATE `user`.`users` SET `password` = '" . $password . "' WHERE `username` = '" . $username . "'";
+                            $result = mysqli_query($conn,$update_sql);
+                            if (!$result) {
+                                echo "{\"state\": '-1'}";
+                                break;
+                            }
+                            echo "{\"state\": '1'}";
+                        }
+                        //仅修改权限
+                        else if (!empty($username) && !empty($Authority) && ($Authority=="Y" || $Authority=="N") && empty($password2)){
+                            $update_sql = "UPDATE `user`.`users` SET `Authority` = '" . $Authority . "' WHERE `username` = '" . $username . "'";
+                            $result = mysqli_query($conn,$update_sql);
+                            if (!$result) {
+                                echo "{\"state\": '-1'}";
+                                break;
+                            }
+                            echo "{\"state\": '1'}";
+                        }
+                        //用户名和权限都做修改
+                        else if (!empty($username) && !empty($password2) && !empty($Authority) && ($Authority=="Y" || $Authority=="N" )) {
                             $update_sql = "UPDATE `user`.`users` SET `password` = '" . $password . "', `Authority` = '" . $Authority . "' WHERE `username` = '" . $username . "'";
                             $result = mysqli_query($conn,$update_sql);
                             if (!$result) {
